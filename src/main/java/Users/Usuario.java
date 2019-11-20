@@ -13,14 +13,20 @@ import java.util.ArrayList;
  * @author artur
  */
 public class Usuario {
+    private static int next_id_user = 1;
     private int id;
-    private String nome_usuario;
-    private String email;
-    private String senha;
-    private ArrayList<DeckProduct> decks;
+    protected String nome_usuario;
+    protected String email;
+    protected String senha;
+    protected ArrayList<DeckProduct> decks;
+
+    public Usuario() {
+        this.id = next_id_user;
+        next_id_user++;
+    }
     
-    public void editarUsuario(int id, String nome_usuario, String email, String senha) {
-        this.id = id;
+    
+    public void editarUsuario(String nome_usuario, String email, String senha) {
         this.nome_usuario = nome_usuario;
         this.email = email;
         this.senha = senha;
@@ -47,6 +53,5 @@ public class Usuario {
     public ArrayList<DeckProduct> getDecks() {
         return decks;
     }
-    
     
 }

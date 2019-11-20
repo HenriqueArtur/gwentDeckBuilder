@@ -93,5 +93,9 @@ public class DeckProduct {
     public void setDeck_name(String deck_name) {
         this.deck_name = deck_name;
     }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
     
 }
