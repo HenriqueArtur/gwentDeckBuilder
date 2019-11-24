@@ -13,6 +13,10 @@ import Users.Usuario;
  */
 public class DeckBuilder {
     private DeckProduct deck;
+
+    public DeckBuilder() {
+        deck = new DeckProduct();
+    }
     
     public void buildDeckName(String deck_name){
         this.deck.setDeck_name(deck_name);
@@ -21,4 +25,9 @@ public class DeckBuilder {
     public void buildUsuario(Usuario usuario) {
         this.deck.setUsuario(usuario);
     }
+
+    public DeckProduct getDeck() {
+        return this.deck;
+    }
+    
 }

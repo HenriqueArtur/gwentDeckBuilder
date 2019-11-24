@@ -53,5 +53,43 @@ public class Usuario {
     public ArrayList<DeckProduct> getDecks() {
         return decks;
     }
+
+    // GETs
+    public int getId() {
+        return id;
+    }
+
+    public String getNome_usuario() {
+        return nome_usuario;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+    
+    //SETs
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNome_usuario(String nome_usuario) {
+        this.nome_usuario = nome_usuario;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public void setDecks(ArrayList<DeckProduct> decks) {
+        this.decks = decks;
+    }
     
 }

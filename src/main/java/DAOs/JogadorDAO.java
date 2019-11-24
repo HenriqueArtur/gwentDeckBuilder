@@ -5,7 +5,7 @@
  */
 package DAOs;
 
-import Users.Admin;
+import Users.Jogador;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,121 +17,119 @@ import java.util.List;
  * @author artur
  */
 
-public class AdminDAO extends DAO {
-     public void inserir(Admin a) throws Exception {
+
+/* ESTOU COM DUVIDA EM COMO RETORNAR DECKS */
+
+public class JogadorDAO extends DAO {
+     public void inserir(Jogador j) throws Exception {
         Connection c = obterConexao();
+        String sql = "INSERT INTO jogador (id, nome_usuario, email, senha) VALUES (?, ?, ?, ?)";
         
-        String sql = "INSERT INTO usuario (id, nome_usuario, email, senha) VALUES (?, ?, ?, ?)";
         PreparedStatement stmt = c.prepareStatement(sql);
-        stmt.setInt(1, a.getId());
-        stmt.setString(2, a.getNome_usuario());
-        stmt.setString(3, a.getEmail());
-        stmt.setString(4, a.getSenha());
+        stmt.setInt(1, j.getId());
+        stmt.setString(2, j.getNome_usuario());
+        stmt.setString(3, j.getEmail());
+        stmt.setString(4, j.getSenha());
         int resultado = stmt.executeUpdate();
         stmt.close();
         
-        sql = "INSERT INTO admin (usuario_id) VALUES (?)";
+        sql = "INSERT INTO jogador (usuario_id) VALUES (?)";
         stmt = c.prepareStatement(sql);
-        stmt.setInt(1, a.getId());
+        stmt.setInt(1, j.getId());
         resultado = stmt.executeUpdate();
         stmt.close();
-        
         fecharConexao(c);
         if (resultado != 1) {
-            throw new Exception("Não foi possível inserir este admin");
+            throw new Exception("Não foi possível inserir este jogador");
         }
     }
      
-     public void atualizar(Admin a) throws Exception {
+     public void atualizar(Jogador j) throws Exception {
         Connection c = obterConexao();
         
-        String sql = "UPDATE usuario SET nome_usuario = ?, email = ?, senha = ? WHERE id = ?";
+        String sql = "UPDATE jogador SET nome_usuario = ?, email = ?, senha = ? WHERE id = ?";
         PreparedStatement stmt = c.prepareStatement(sql);
-        stmt.setString(1, a.getNome_usuario());
-        stmt.setString(2, a.getEmail());
-        stmt.setString(3, a.getSenha());
-        stmt.setInt(4, a.getId());
+        stmt.setString(1, j.getNome_usuario());
+        stmt.setString(2, j.getEmail());
+        stmt.setString(3, j.getSenha());
+        stmt.setInt(4, j.getId());
         int resultado = stmt.executeUpdate();
         stmt.close();
         
-        sql = "UPDATE admin SET id = ?";
+        sql = "UPDATE jogador SET id = ?";
         stmt = c.prepareStatement(sql);
-        stmt.setInt(1, a.getId());
+        stmt.setInt(1, j.getId());
         resultado = stmt.executeUpdate();
         stmt.close();
         
         fecharConexao(c);
         if (resultado != 1) {
-            throw new Exception("Não foi possível atualizar este admin");
+            throw new Exception("Não foi possível atualizar este jogador");
         }
     }
 
-    public void remover(Admin a) throws Exception {
+    public void remover(Jogador j) throws Exception {
         Connection c = obterConexao();
         
-        String sql = "DELETE FROM admin WHERE id = ?";
+        String sql = "DELETE FROM jogador WHERE id = ?";
         PreparedStatement stmt = c.prepareStatement(sql);
-        stmt.setInt(1, a.getId());
+        stmt.setInt(1, j.getId());
         int resultado = stmt.executeUpdate();
         stmt.close();
         
         sql = "DELETE FROM usuario WHERE id = ?";
         stmt = c.prepareStatement(sql);
-        stmt.setInt(1, a.getId());
+        stmt.setInt(1, j.getId());
         resultado = stmt.executeUpdate();
         stmt.close();
         
         fecharConexao(c);
         if (resultado != 1) {
-            throw new Exception("Não foi possível remover este admin");
+            throw new Exception("Não foi possível remover este jogador");
         }
     }
 
-    public Admin obter(int id) throws Exception {
-        Admin a = null;
+    public Jogador obter(int id) throws Exception {
+        Jogador j = null;
         Connection c = obterConexao();
         String sql = "SELECT id, nome_usuario, email, senha FROM pessoa WHERE id = ?";
         PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setInt(1, id);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
-            a = new Admin();
-            a.setId(rs.getInt("id"));
-            a.setNome_usuario(rs.getString("nome_usuario"));
-            a.setEmail(rs.getString("email"));
-            a.setSenha(rs.getString("senha"));
-            //****************************
-            sql = "SELECT id, nome_usuario, email, senha FROM deck WHERE id = ?";
-            stmt = c.prepareStatement(sql);
-            //****************************
+            j = new Jogador();
+            j.setId(rs.getInt("id"));
+            j.setNome_usuario(rs.getString("nome_usuario"));
+            j.setEmail(rs.getString("email"));
+            j.setSenha(rs.getString("senha"));
         }
         rs.close();
         stmt.close();
         fecharConexao(c);
-        if (a == null) {
+        if (j == null) {
             throw new Exception("Não foi possível localizar este usuario");
         }
-        return a;
+        return j;
     }
 
-    public List<Admin> obterTodos() throws Exception {
-        List<Admin> admins = new ArrayList<Admin>();
+    public List<Jogador> obterTodos() throws Exception {
+        List<Jogador> jogadores = new ArrayList<Jogador>();
         Connection c = obterConexao();
         String sql = "SELECT id, nome_usuario, email, senha FROM usuario";
         PreparedStatement stmt = c.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
-            Admin a = new Admin();
-            a.setId(rs.getInt("id"));
-            a.setNome_usuario(rs.getString("nome_usuario"));
-            a.setEmail(rs.getString("email"));
-            a.setSenha(rs.getString("senha"));
-            admins.add(a);
+            Jogador j = new Jogador();
+            j.setId(rs.getInt("id"));
+            j.setNome_usuario(rs.getString("nome_usuario"));
+            j.setEmail(rs.getString("email"));
+            j.setSenha(rs.getString("senha"));
+            jogadores.add(j);
         }
         rs.close();
         stmt.close();
         fecharConexao(c);
-        return admins;
+        return jogadores;
     }
 
 }

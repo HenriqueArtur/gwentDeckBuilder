@@ -17,4 +17,7 @@ public class Jogador extends Usuario {
         this.email = email;
         this.senha = senha;
     }
+
+    public Jogador() {}
+    
 }

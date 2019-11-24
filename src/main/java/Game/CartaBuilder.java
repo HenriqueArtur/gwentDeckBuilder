@@ -13,44 +13,52 @@ import java.util.ArrayList;
  */
 public class CartaBuilder {
     private CartaProduct carta;
+
+    public CartaBuilder() {
+        this.carta = new CartaProduct();
+    }
     
     public void buildTitulo(String titulo) {
-        this.carta.setTitulo(titulo);
+        getCarta().setTitulo(titulo);
     }
     
     public void buildDescricao(String descricao){
-        this.carta.setDescricao(descricao);
+        getCarta().setDescricao(descricao);
     }
     
     public void buildFaccao(String faccao) {
-        this.carta.setFaccao(faccao);
+        getCarta().setFaccao(faccao);
     }
     
-    public void buidlRaridade(String raridade){
-        this.carta.setRaridade(raridade);
+    public void buildRaridade(String raridade){
+        getCarta().setRaridade(raridade);
     }
     
     public void buildHierarquia(String hierarquia) {
-        this.carta.setHierarquia(hierarquia);
+        getCarta().setHierarquia(hierarquia);
     }
     
     public void buildArte(String arte) {
-        this.carta.setArte(arte);
+        getCarta().setArte(arte);
     }
     
     public void buildRestos(int restos){
-        this.carta.setRestos(restos);
+        getCarta().setRestos(restos);
     }
     
     public void buildPontos(int pontos) {
-        this.carta.setPontos(pontos);
+        getCarta().setPontos(pontos);
     }
     
     public void buildProvisoes(int provisoes) {
-        this.carta.setProvisoes(provisoes);
+        getCarta().setProvisoes(provisoes);
     }
     
     public void buildEfeitos(ArrayList<Efeito> efeitos) {
-        this.carta.setEfeitos(efeitos);
+        getCarta().setEfeitos(efeitos);
+    }
+
+    public CartaProduct getCarta() {
+        return this.carta;
     }
 }

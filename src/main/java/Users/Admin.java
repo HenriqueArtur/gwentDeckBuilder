@@ -5,6 +5,7 @@
  */
 package Users;
 
+import Game.CartaBuilder;
 import Game.CartaProduct;
 import Game.Efeito;
 import java.util.ArrayList;
@@ -20,9 +21,23 @@ public class Admin extends Usuario {
         this.email = email;
         this.senha = senha;
     }
+
+    public Admin() {}
     
-    public void criarCarta() {
-        
+    public void criarCarta(String titulo, String descricao,
+                       String faccao, String raridade, String hierarquia, String arte,
+                       int restos, int pontos, int provisoes, ArrayList<Efeito> efeitos) {
+        CartaBuilder carta = new CartaBuilder();
+        carta.buildRaridade(raridade);
+        carta.buildArte(arte);
+        carta.buildDescricao(descricao);
+        carta.buildEfeitos(efeitos);
+        carta.buildFaccao(faccao);
+        carta.buildHierarquia(hierarquia);
+        carta.buildPontos(pontos);
+        carta.buildProvisoes(provisoes);
+        carta.buildRestos(restos);
+        carta.buildTitulo(titulo);
     }
     
     public void editarCarta(CartaProduct carta, String titulo, String descricao,
