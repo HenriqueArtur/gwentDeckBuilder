@@ -5,6 +5,7 @@
  */
 package DAOs;
 
+import Game.DeckProduct;
 import Users.Jogador;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,9 +17,6 @@ import java.util.List;
  *
  * @author artur
  */
-
-
-/* ESTOU COM DUVIDA EM COMO RETORNAR DECKS */
 
 public class JogadorDAO extends DAO {
      public void inserir(Jogador j) throws Exception {
@@ -102,6 +100,7 @@ public class JogadorDAO extends DAO {
             j.setNome_usuario(rs.getString("nome_usuario"));
             j.setEmail(rs.getString("email"));
             j.setSenha(rs.getString("senha"));
+            j.setDecks(obterDecks(rs.getInt("id"), c));
         }
         rs.close();
         stmt.close();
@@ -124,6 +123,7 @@ public class JogadorDAO extends DAO {
             j.setNome_usuario(rs.getString("nome_usuario"));
             j.setEmail(rs.getString("email"));
             j.setSenha(rs.getString("senha"));
+            j.setDecks(obterDecks(rs.getInt("id"), c));
             jogadores.add(j);
         }
         rs.close();
@@ -132,4 +132,17 @@ public class JogadorDAO extends DAO {
         return jogadores;
     }
 
+    public ArrayList<DeckProduct> obterDecks(int id_usuario, Connection c) throws Exception{
+        ArrayList<DeckProduct> decks = new ArrayList<DeckProduct>();
+        DeckDAO deck = new DeckDAO();
+        String sql = "SELECT d.id FROM deck AS d WHERE d.usuario_id = ?";
+        PreparedStatement stmt = c.prepareStatement(sql);
+        stmt.setInt(1, id_usuario);
+        ResultSet rs2 = stmt.executeQuery();
+        while (rs2.next()) {
+            decks.add(deck.obter(rs2.getInt("d.id")));
+        }
+        rs2.close();
+        return decks;
+    }
 }

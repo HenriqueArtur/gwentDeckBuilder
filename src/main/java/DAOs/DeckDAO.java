@@ -7,10 +7,7 @@ package DAOs;
 
 import Game.CartaProduct;
 import Game.DeckProduct;
-import Game.Efeito;
-import Game.EfeitoConsume;
-import Game.EfeitoDeploy;
-import Game.EfeitoHeal;
+import Users.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -89,61 +86,64 @@ public class DeckDAO extends DAO {
         DeckProduct cb = null;
         Connection c = obterConexao();
         
-        String sql = "SELECT id, titulo, descricao, faccao, raridade, hierarquia, arte, restos, pontos, provisoes FROM carta WHERE id = ?";
+        String sql = "SELECT id, usuario_id, deck_name FROM deck WHERE id = ?";
         PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setInt(1, id);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
-            cb = new CartaProduct();
-            cb.setId(rs.getInt("id"));
-            cb.setTitulo(rs.getString("titulo"));
-            cb.setDescricao(rs.getString("descricao"));
-            cb.setFaccao(rs.getString("faccao"));
-            cb.setRaridade(rs.getString("raridade"));
-            cb.setHierarquia(rs.getString("hierarquia"));
-            cb.setArte(rs.getString("arte"));
-            cb.setRestos(rs.getInt("restos"));
-            cb.setPontos(rs.getInt("pontos"));
-            cb.setProvisoes(rs.getInt("provisoes"));
+            cb = new DeckProduct();
+            cb.setId_deck(rs.getInt("id"));
+            cb.setDeck_name(rs.getString("deck_name"));
+            Usuario u = new Usuario();
+            cb.setUsuario(u);
             //********************************************
-            cb.setEfeitos(obterEfeitos(rs.getInt("id"), c));
+            cb.setCartas(obterCartas(rs.getInt("id"), rs.getInt("usuario_id"), c));
             //********************************************
         }
         rs.close();
         stmt.close();
         fecharConexao(c);
         if (cb == null) {
-            throw new Exception("Não foi possível localizar esta carta");
+            throw new Exception("Não foi possível localizar este deck");
         }
         return cb;
     }
 
-    public List<CartaProduct> obterTodos() throws Exception {
-        List<CartaProduct> cartas = new ArrayList<CartaProduct>();
+    public List<DeckProduct> obterTodos() throws Exception {
+        List<DeckProduct> decks = new ArrayList<DeckProduct>();
         Connection c = obterConexao();
-        String sql = "SELECT id, titulo, descricao, faccao, raridade, hierarquia, arte, restos, pontos, provisoes FROM cartas";
+        String sql = "SELECT id, usuario_id, deck_name FROM deck";
         PreparedStatement stmt = c.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
-            CartaProduct a = new CartaProduct();
-            a.setId(rs.getInt("id"));
-            a.setTitulo(rs.getString("titulo"));
-            a.setDescricao(rs.getString("descricao"));
-            a.setFaccao(rs.getString("faccao"));
-            a.setRaridade(rs.getString("raridade"));
-            a.setHierarquia(rs.getString("hierarquia"));
-            a.setArte(rs.getString("arte"));
-            a.setRestos(rs.getInt("restos"));
-            a.setPontos(rs.getInt("pontos"));
-            a.setProvisoes(rs.getInt("provisoes"));
+            DeckProduct a = new DeckProduct();
+            a.setId_deck(rs.getInt("id"));
+            a.setDeck_name(rs.getString("deck_name"));
+            Usuario u = new Usuario();
+            a.setUsuario(u);
             //********************************************
-            a.setEfeitos(obterEfeitos(rs.getInt("id"), c));
+            a.setCartas(obterCartas(rs.getInt("id"), rs.getInt("usuario_id"), c));
             //********************************************
-            cartas.add(a);
+            decks.add(a);
         }
         rs.close();
         stmt.close();
         fecharConexao(c);
+        return decks;
+    }
+    
+    public ArrayList<CartaProduct> obterCartas(int id_deck, int id_usuario, Connection c) throws Exception{
+        ArrayList<CartaProduct> cartas = new ArrayList<CartaProduct>();
+        CartaDAO carta = new CartaDAO();
+        String sql = "SELECT c.id FROM carta AS c, carta_deck AS cd, deck AS d WHERE cd.deck_id = ? AND cd.usuario_id = ? AND cd.carta_id = c.id";
+        PreparedStatement stmt = c.prepareStatement(sql);
+        stmt.setInt(1, id_deck);
+        stmt.setInt(2, id_usuario);
+        ResultSet rs2 = stmt.executeQuery();
+        while (rs2.next()) {
+            cartas.add(carta.obter(rs2.getInt("c.id")));
+        }
+        rs2.close();
         return cartas;
     }
 

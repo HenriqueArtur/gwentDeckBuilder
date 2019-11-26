@@ -13,16 +13,12 @@ import java.util.ArrayList;
  * @author artur
  */
 public class DeckProduct {
-    private static int next_id_deck = 1;
-    private final int id_deck;
+    private int id_deck;
     private String deck_name;
     private Usuario usuario;
     private ArrayList<CartaProduct> cartas;
 
-    public DeckProduct() {
-        this.id_deck = next_id_deck;
-        next_id_deck++;
-    }
+    public DeckProduct() {}
     
     public void addCarta(CartaProduct carta) {
         if(retornaProvisoes() + carta.getProvisoes() <= 165 && cartaPorHierarquia(carta)) {
@@ -96,6 +92,14 @@ public class DeckProduct {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public void setId_deck(int id_deck) {
+        this.id_deck = id_deck;
+    }
+
+    public void setCartas(ArrayList<CartaProduct> cartas) {
+        this.cartas = cartas;
     }
     
 }

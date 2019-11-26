@@ -5,6 +5,7 @@
  */
 package DAOs;
 
+import Game.DeckProduct;
 import Users.Admin;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -101,8 +102,7 @@ public class AdminDAO extends DAO {
             a.setEmail(rs.getString("email"));
             a.setSenha(rs.getString("senha"));
             //****************************
-            sql = "SELECT id, nome_usuario, email, senha FROM deck WHERE id = ?";
-            stmt = c.prepareStatement(sql);
+            a.setDecks(obterDecks(rs.getInt("id"), c));
             //****************************
         }
         rs.close();
@@ -126,6 +126,7 @@ public class AdminDAO extends DAO {
             a.setNome_usuario(rs.getString("nome_usuario"));
             a.setEmail(rs.getString("email"));
             a.setSenha(rs.getString("senha"));
+            a.setDecks(obterDecks(rs.getInt("id"), c));
             admins.add(a);
         }
         rs.close();
@@ -134,4 +135,17 @@ public class AdminDAO extends DAO {
         return admins;
     }
 
+    public ArrayList<DeckProduct> obterDecks(int id_usuario, Connection c) throws Exception{
+        ArrayList<DeckProduct> decks = new ArrayList<DeckProduct>();
+        DeckDAO deck = new DeckDAO();
+        String sql = "SELECT d.id FROM deck AS d WHERE d.usuario_id = ?";
+        PreparedStatement stmt = c.prepareStatement(sql);
+        stmt.setInt(1, id_usuario);
+        ResultSet rs2 = stmt.executeQuery();
+        while (rs2.next()) {
+            decks.add(deck.obter(rs2.getInt("d.id")));
+        }
+        rs2.close();
+        return decks;
+    }
 }
