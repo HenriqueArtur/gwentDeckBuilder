@@ -10,14 +10,11 @@ package Game;
  * @author artur
  */
 public abstract class Efeito {
-    private static int next_id = 1; 
-    private final int id_efeito;
+    private int id_efeito;
     private String descricao;
 
     public Efeito(String descricao) {
-        this.id_efeito = next_id;
         this.descricao = descricao;
-        next_id++;
     }
 
     public void setDescricao(String descricao) {

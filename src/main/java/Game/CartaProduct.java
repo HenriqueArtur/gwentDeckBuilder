@@ -12,7 +12,6 @@ import java.util.ArrayList;
  * @author artur
  */
 public class CartaProduct {
-    private static int next_id_carta = 1;
     private int id_carta;
     private String titulo;
     private String descricao;
@@ -25,10 +24,7 @@ public class CartaProduct {
     private int provisoes;
     private ArrayList<Efeito> efeitos;
 
-    public CartaProduct() {
-        this.id_carta = next_id_carta;
-        next_id_carta++;
-    }
+    public CartaProduct() {}
 
     // GETS
     public int getId_carta() {
@@ -74,11 +70,6 @@ public class CartaProduct {
     public ArrayList<Efeito> getEfeitos() {
         return efeitos;
     }
-
-    public static int getNext_id_carta() {
-        return next_id_carta;
-    }
-    
     
     // SETs
     public void setId(int id_carta) {
@@ -123,10 +114,6 @@ public class CartaProduct {
 
     public void setEfeitos(ArrayList<Efeito> efeitos) {
         this.efeitos = efeitos;
-    }
-
-    public static void setNext_id_carta(int next_id_carta) {
-        CartaProduct.next_id_carta = next_id_carta;
     }
     
 }
