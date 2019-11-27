@@ -26,18 +26,17 @@ public class CartaDAO extends DAO {
      public void inserir(CartaProduct cp) throws Exception {
         Connection c = obterConexao();
         
-        String sql = "INSERT INTO carta (id, titulo, descricao, faccao, raridade, hierarquia, arte, restos, pontos, provisoes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO carta (titulo, descricao, faccao, raridade, hierarquia, arte, resto, pontos, provisoes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = c.prepareStatement(sql);
-        stmt.setInt(1, cp.getId_carta());
-        stmt.setString(2, cp.getTitulo());
-        stmt.setString(3, cp.getDescricao());
-        stmt.setString(4, cp.getFaccao());
-        stmt.setString(5, cp.getRaridade());
-        stmt.setString(6, cp.getHierarquia());
-        stmt.setString(7, cp.getArte());
-        stmt.setInt(8, cp.getRestos());
-        stmt.setInt(9, cp.getPontos());
-        stmt.setInt(10, cp.getProvisoes());
+        stmt.setString(1, cp.getTitulo());
+        stmt.setString(2, cp.getDescricao());
+        stmt.setString(3, cp.getFaccao());
+        stmt.setString(4, cp.getRaridade());
+        stmt.setString(5, cp.getHierarquia());
+        stmt.setString(6, cp.getArte());
+        stmt.setInt(7, cp.getRestos());
+        stmt.setInt(8, cp.getPontos());
+        stmt.setInt(9, cp.getProvisoes());
         int resultado = stmt.executeUpdate();
         stmt.close();
 
@@ -50,7 +49,7 @@ public class CartaDAO extends DAO {
      public void atualizar(CartaProduct cp) throws Exception {
         Connection c = obterConexao();
         
-        String sql = "UPDATE carta SET titulo = ?, descricao = ?, faccao = ?, raridade = ?, hierarquia = ?, arte = ?, restos = ?, pontos = ?, provisoes = ? WHERE id = ?";
+        String sql = "UPDATE carta SET titulo = ?, descricao = ?, faccao = ?, raridade = ?, hierarquia = ?, arte = ?, resto = ?, pontos = ?, provisoes = ? WHERE id = ?";
         PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setString(1, cp.getTitulo());
         stmt.setString(2, cp.getDescricao());
@@ -90,7 +89,7 @@ public class CartaDAO extends DAO {
         CartaProduct cb = null;
         Connection c = obterConexao();
         
-        String sql = "SELECT id, titulo, descricao, faccao, raridade, hierarquia, arte, restos, pontos, provisoes FROM carta WHERE id = ?";
+        String sql = "SELECT id, titulo, descricao, faccao, raridade, hierarquia, arte, resto, pontos, provisoes FROM carta WHERE id = ?";
         PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setInt(1, id);
         ResultSet rs = stmt.executeQuery();
@@ -103,7 +102,7 @@ public class CartaDAO extends DAO {
             cb.setRaridade(rs.getString("raridade"));
             cb.setHierarquia(rs.getString("hierarquia"));
             cb.setArte(rs.getString("arte"));
-            cb.setRestos(rs.getInt("restos"));
+            cb.setRestos(rs.getInt("resto"));
             cb.setPontos(rs.getInt("pontos"));
             cb.setProvisoes(rs.getInt("provisoes"));
             //********************************************
@@ -122,7 +121,7 @@ public class CartaDAO extends DAO {
     public List<CartaProduct> obterTodos() throws Exception {
         List<CartaProduct> cartas = new ArrayList<CartaProduct>();
         Connection c = obterConexao();
-        String sql = "SELECT id, titulo, descricao, faccao, raridade, hierarquia, arte, restos, pontos, provisoes FROM cartas";
+        String sql = "SELECT id, titulo, descricao, faccao, raridade, hierarquia, arte, resto, pontos, provisoes FROM carta";
         PreparedStatement stmt = c.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
@@ -134,7 +133,7 @@ public class CartaDAO extends DAO {
             a.setRaridade(rs.getString("raridade"));
             a.setHierarquia(rs.getString("hierarquia"));
             a.setArte(rs.getString("arte"));
-            a.setRestos(rs.getInt("restos"));
+            a.setRestos(rs.getInt("resto"));
             a.setPontos(rs.getInt("pontos"));
             a.setProvisoes(rs.getInt("provisoes"));
             //********************************************
