@@ -21,21 +21,20 @@ import java.util.List;
 public class JogadorDAO extends DAO {
      public void inserir(Jogador j) throws Exception {
         Connection c = obterConexao();
-        String sql = "INSERT INTO jogador (id, nome_usuario, email, senha) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO usuario (nome_usuario, email, senha) VALUES (?, ?, ?)";
         
         PreparedStatement stmt = c.prepareStatement(sql);
-        stmt.setInt(1, j.getId());
-        stmt.setString(2, j.getNome_usuario());
-        stmt.setString(3, j.getEmail());
-        stmt.setString(4, j.getSenha());
+        stmt.setString(1, j.getNome_usuario());
+        stmt.setString(2, j.getEmail());
+        stmt.setString(3, j.getSenha());
         int resultado = stmt.executeUpdate();
         stmt.close();
         
-        sql = "INSERT INTO jogador (usuario_id) VALUES (?)";
+        sql = "INSERT INTO jogador (usuario_id) VALUES ((SELECT MAX(id) FROM usuario))";
         stmt = c.prepareStatement(sql);
-        stmt.setInt(1, j.getId());
         resultado = stmt.executeUpdate();
         stmt.close();
+        
         fecharConexao(c);
         if (resultado != 1) {
             throw new Exception("Não foi possível inserir este jogador");
@@ -45,7 +44,7 @@ public class JogadorDAO extends DAO {
      public void atualizar(Jogador j) throws Exception {
         Connection c = obterConexao();
         
-        String sql = "UPDATE jogador SET nome_usuario = ?, email = ?, senha = ? WHERE id = ?";
+        String sql = "UPDATE usuario SET nome_usuario = ?, email = ?, senha = ? WHERE id = ?";
         PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setString(1, j.getNome_usuario());
         stmt.setString(2, j.getEmail());
@@ -54,7 +53,7 @@ public class JogadorDAO extends DAO {
         int resultado = stmt.executeUpdate();
         stmt.close();
         
-        sql = "UPDATE jogador SET id = ?";
+        sql = "UPDATE jogador SET usuario_id = ?";
         stmt = c.prepareStatement(sql);
         stmt.setInt(1, j.getId());
         resultado = stmt.executeUpdate();
@@ -69,7 +68,7 @@ public class JogadorDAO extends DAO {
     public void remover(Jogador j) throws Exception {
         Connection c = obterConexao();
         
-        String sql = "DELETE FROM jogador WHERE id = ?";
+        String sql = "DELETE FROM jogador WHERE usuario_id = ?";
         PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setInt(1, j.getId());
         int resultado = stmt.executeUpdate();
@@ -90,9 +89,10 @@ public class JogadorDAO extends DAO {
     public Jogador obter(int id) throws Exception {
         Jogador j = null;
         Connection c = obterConexao();
-        String sql = "SELECT id, nome_usuario, email, senha FROM pessoa WHERE id = ?";
+        String sql = "SELECT u.id, u.nome_usuario, u.email, u.senha FROM usuario AS u, jogador AS j WHERE u.id = ? AND j.usuario_id = ?";
         PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setInt(1, id);
+        stmt.setInt(2, id);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
             j = new Jogador();
@@ -114,7 +114,7 @@ public class JogadorDAO extends DAO {
     public List<Jogador> obterTodos() throws Exception {
         List<Jogador> jogadores = new ArrayList<Jogador>();
         Connection c = obterConexao();
-        String sql = "SELECT id, nome_usuario, email, senha FROM usuario";
+        String sql = "SELECT u.id, u.nome_usuario, u.email, u.senha FROM usuario AS u, jogador AS a WHERE a.usuario_id = u.id";
         PreparedStatement stmt = c.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
@@ -135,7 +135,7 @@ public class JogadorDAO extends DAO {
     public ArrayList<DeckProduct> obterDecks(int id_usuario, Connection c) throws Exception{
         ArrayList<DeckProduct> decks = new ArrayList<DeckProduct>();
         DeckDAO deck = new DeckDAO();
-        String sql = "SELECT d.id FROM deck AS d WHERE d.usuario_id = ?";
+        String sql = "SELECT d.deck_id FROM deck AS d WHERE d.usuario_id = ?";
         PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setInt(1, id_usuario);
         ResultSet rs2 = stmt.executeQuery();

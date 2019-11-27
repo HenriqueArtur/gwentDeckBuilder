@@ -22,20 +22,18 @@ public class AdminDAO extends DAO {
      public void inserir(Admin a) throws Exception {
         Connection c = obterConexao();
         
-        String sql = "INSERT INTO usuario (id, nome_usuario, email, senha) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO usuario (nome_usuario, email, senha) VALUES (?, ?, ?)";
         PreparedStatement stmt = c.prepareStatement(sql);
-        stmt.setInt(1, a.getId());
-        stmt.setString(2, a.getNome_usuario());
-        stmt.setString(3, a.getEmail());
-        stmt.setString(4, a.getSenha());
+        stmt.setString(1, a.getNome_usuario());
+        stmt.setString(2, a.getEmail());
+        stmt.setString(3, a.getSenha());
         int resultado = stmt.executeUpdate();
         stmt.close();
         
-        sql = "INSERT INTO admin (usuario_id) VALUES (?)";
+        sql = "INSERT INTO admin (usuario_id) VALUES ((SELECT MAX(id) FROM usuario))";
         stmt = c.prepareStatement(sql);
-        stmt.setInt(1, a.getId());
         resultado = stmt.executeUpdate();
-        stmt.close();
+        stmt.close();;
         
         fecharConexao(c);
         if (resultado != 1) {
@@ -55,7 +53,7 @@ public class AdminDAO extends DAO {
         int resultado = stmt.executeUpdate();
         stmt.close();
         
-        sql = "UPDATE admin SET id = ?";
+        sql = "UPDATE admin SET usuario_id = ?";
         stmt = c.prepareStatement(sql);
         stmt.setInt(1, a.getId());
         resultado = stmt.executeUpdate();
@@ -70,7 +68,7 @@ public class AdminDAO extends DAO {
     public void remover(Admin a) throws Exception {
         Connection c = obterConexao();
         
-        String sql = "DELETE FROM admin WHERE id = ?";
+        String sql = "DELETE FROM admin WHERE usuario_id = ?";
         PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setInt(1, a.getId());
         int resultado = stmt.executeUpdate();
@@ -91,9 +89,10 @@ public class AdminDAO extends DAO {
     public Admin obter(int id) throws Exception {
         Admin a = null;
         Connection c = obterConexao();
-        String sql = "SELECT id, nome_usuario, email, senha FROM pessoa WHERE id = ?";
+        String sql = "SELECT u.id, u.nome_usuario, u.email, u.senha FROM usuario AS u, admin AS a WHERE u.id = ? AND a.usuario_id = ?";
         PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setInt(1, id);
+        stmt.setInt(2, id);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
             a = new Admin();
@@ -117,7 +116,7 @@ public class AdminDAO extends DAO {
     public List<Admin> obterTodos() throws Exception {
         List<Admin> admins = new ArrayList<Admin>();
         Connection c = obterConexao();
-        String sql = "SELECT id, nome_usuario, email, senha FROM usuario";
+        String sql = "SELECT u.id, u.nome_usuario, u.email, u.senha FROM usuario AS u, admin AS a WHERE a.usuario_id = u.id";
         PreparedStatement stmt = c.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
@@ -138,7 +137,7 @@ public class AdminDAO extends DAO {
     public ArrayList<DeckProduct> obterDecks(int id_usuario, Connection c) throws Exception{
         ArrayList<DeckProduct> decks = new ArrayList<DeckProduct>();
         DeckDAO deck = new DeckDAO();
-        String sql = "SELECT d.id FROM deck AS d WHERE d.usuario_id = ?";
+        String sql = "SELECT d.deck_id FROM deck AS d WHERE d.usuario_id = ?";
         PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setInt(1, id_usuario);
         ResultSet rs2 = stmt.executeQuery();
