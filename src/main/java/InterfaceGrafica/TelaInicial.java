@@ -140,7 +140,15 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoCadastroActionPerformed
 
     private void botaoDeckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDeckActionPerformed
-        // TODO add your handling code here:
+        TelaDeck frame = new TelaDeck();
+        frame.setLocationRelativeTo(null);
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                frame.dispose();
+            }
+        });
+        frame.setVisible(true);
     }//GEN-LAST:event_botaoDeckActionPerformed
 
     /**
