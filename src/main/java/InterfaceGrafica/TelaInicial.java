@@ -112,7 +112,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void botaoCartasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCartasActionPerformed
         
-        TelaCriaCarta frame = new TelaCriaCarta();
+        TelaCarta frame = new TelaCarta();
         frame.setLocationRelativeTo(null);
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override

@@ -32,6 +32,8 @@ public class TelaCadastro extends javax.swing.JFrame {
         javax.swing.JButton botaoRemoveAdmin1 = new javax.swing.JButton();
         javax.swing.JButton botaoConsultaAdmin = new javax.swing.JButton();
         javax.swing.JButton botaoRemoveJog1 = new javax.swing.JButton();
+        javax.swing.JButton botaoEditaJog = new javax.swing.JButton();
+        javax.swing.JButton botaoEditaAdmin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,6 +97,26 @@ public class TelaCadastro extends javax.swing.JFrame {
             }
         });
 
+        botaoEditaJog.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botaoEditaJog.setText("Editar Jogador");
+        botaoEditaJog.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        botaoEditaJog.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botaoEditaJog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoEditaJogActionPerformed(evt);
+            }
+        });
+
+        botaoEditaAdmin.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botaoEditaAdmin.setText("Editar Administrador");
+        botaoEditaAdmin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        botaoEditaAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botaoEditaAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoEditaAdminActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,10 +124,6 @@ public class TelaCadastro extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(63, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(botaoConsultaAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(botaoConsultarJog, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(botaoRemoveAdmin1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -114,7 +132,15 @@ public class TelaCadastro extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(botaoCadastroAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(botaoCadastroJog, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(botaoCadastroJog, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(botaoConsultaAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botaoEditaAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botaoEditaJog, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botaoConsultarJog, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(74, 74, 74))
         );
         layout.setVerticalGroup(
@@ -132,7 +158,11 @@ public class TelaCadastro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoConsultaAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoConsultarJog, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoEditaJog, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoEditaAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         pack();
@@ -209,6 +239,30 @@ public class TelaCadastro extends javax.swing.JFrame {
         });
         frame.setVisible(true);
     }//GEN-LAST:event_botaoRemoveJog1ActionPerformed
+
+    private void botaoEditaJogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditaJogActionPerformed
+        TelaEditaJogador frame = new TelaEditaJogador();
+        frame.setLocationRelativeTo(null);
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                frame.dispose();
+            }
+        });
+        frame.setVisible(true);
+    }//GEN-LAST:event_botaoEditaJogActionPerformed
+
+    private void botaoEditaAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditaAdminActionPerformed
+        TelaEditaAdm frame = new TelaEditaAdm();
+        frame.setLocationRelativeTo(null);
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                frame.dispose();
+            }
+        });
+        frame.setVisible(true);
+    }//GEN-LAST:event_botaoEditaAdminActionPerformed
 
     public static void main(String args[]) {
 

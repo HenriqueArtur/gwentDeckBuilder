@@ -42,9 +42,11 @@ public class CartaDAO extends DAO {
             stmt.close();
 
             //****************************************************
-            for(Efeito efeito : cp.getEfeitos()) {
-                inserirEfeitoCarta(qualEfeito(efeito));
-                //System.out.println(qualEfeito(efeito);
+            if(cp.getEfeitos()!= null){
+                for(Efeito efeito : cp.getEfeitos()) {
+                    inserirEfeitoCarta(qualEfeito(efeito));
+                    //System.out.println(qualEfeito(efeito);
+                }
             }
             //****************************************************
 
@@ -202,7 +204,7 @@ public class CartaDAO extends DAO {
     public void inserirEfeitoCarta(int efeito_id) throws Exception {
         Connection c = obterConexao();
 
-        String sql = "INSERT INTO efeito_carta (efeito_id, carta_id) VALUES ((SELECT MAX(id) FROM usuario), ?)";
+        String sql = "INSERT INTO efeito_carta (efeito_id, carta_id) VALUES (?, (SELECT MAX(id) FROM usuario))";
         PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setInt(1, efeito_id);
         int resultado = stmt.executeUpdate();
