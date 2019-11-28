@@ -51,13 +51,7 @@ public class JogadorDAO extends DAO {
         stmt.setString(3, j.getSenha());
         stmt.setInt(4, j.getId());
         int resultado = stmt.executeUpdate();
-        stmt.close();
-        
-        sql = "UPDATE jogador SET usuario_id = ?";
-        stmt = c.prepareStatement(sql);
-        stmt.setInt(1, j.getId());
-        resultado = stmt.executeUpdate();
-        stmt.close();
+        stmt.close();   
         
         fecharConexao(c);
         if (resultado != 1) {
