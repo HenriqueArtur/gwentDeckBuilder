@@ -113,7 +113,7 @@ public class TelaConsultaAdmin extends javax.swing.JFrame {
             System.out.println("1()");
             Admin a = dao.obter(Integer.parseInt(textoId.getText()));
             System.out.println("3()");
-            textoUsuario.setText(Integer.toString(a.getId()));
+            textoUsuario.setText(a.getNome_usuario());
             System.out.println("4()");
             textoEmail.setText(a.getEmail());
             System.out.println("5()");

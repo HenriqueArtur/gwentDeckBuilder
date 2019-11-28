@@ -24,29 +24,41 @@ import java.util.List;
 
 public class CartaDAO extends DAO {
      public void inserir(CartaProduct cp) throws Exception {
-        Connection c = obterConexao();
-        
-        String sql = "INSERT INTO carta (titulo, descricao, faccao, raridade, hierarquia, arte, resto, pontos, provisoes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        PreparedStatement stmt = c.prepareStatement(sql);
-        stmt.setString(1, cp.getTitulo());
-        stmt.setString(2, cp.getDescricao());
-        stmt.setString(3, cp.getFaccao());
-        stmt.setString(4, cp.getRaridade());
-        stmt.setString(5, cp.getHierarquia());
-        stmt.setString(6, cp.getArte());
-        stmt.setInt(7, cp.getRestos());
-        stmt.setInt(8, cp.getPontos());
-        stmt.setInt(9, cp.getProvisoes());
-        int resultado = stmt.executeUpdate();
-        stmt.close();
+        try {
+            Connection c = obterConexao();
 
-        fecharConexao(c);
-        if (resultado != 1) {
+            String sql = "INSERT INTO carta (titulo, descricao, faccao, raridade, hierarquia, arte, resto, pontos, provisoes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setString(1, cp.getTitulo());
+            stmt.setString(2, cp.getDescricao());
+            stmt.setString(3, cp.getFaccao());
+            stmt.setString(4, cp.getRaridade());
+            stmt.setString(5, cp.getHierarquia());
+            stmt.setString(6, cp.getArte());
+            stmt.setInt(7, cp.getRestos());
+            stmt.setInt(8, cp.getPontos());
+            stmt.setInt(9, cp.getProvisoes());
+            int resultado = stmt.executeUpdate();
+            stmt.close();
+
+            //****************************************************
+            for(Efeito efeito : cp.getEfeitos()) {
+                inserirEfeitoCarta(qualEfeito(efeito));
+                //System.out.println(qualEfeito(efeito);
+            }
+            //****************************************************
+
+            fecharConexao(c);
+            /*if (resultado != 1) {
+                throw new Exception("Não foi possível inserir esta carta");
+            }*/
+        } catch (Exception e) {
             throw new Exception("Não foi possível inserir esta carta");
         }
     }
      
      public void atualizar(CartaProduct cp) throws Exception {
+        
         Connection c = obterConexao();
         
         String sql = "UPDATE carta SET titulo = ?, descricao = ?, faccao = ?, raridade = ?, hierarquia = ?, arte = ?, resto = ?, pontos = ?, provisoes = ? WHERE id = ?";
@@ -173,5 +185,29 @@ public class CartaDAO extends DAO {
         }
         rs2.close();
         return efeitos;
+    }
+    
+    public int qualEfeito(Efeito e) throws Exception {
+        if(e instanceof EfeitoConsume) {
+            return 1;
+        } else if(e instanceof EfeitoDeploy) {
+            return 2;
+        } else if(e instanceof EfeitoHeal) {
+            return 3;
+        }else {
+            throw new Exception("Efeito invalido");
+        }
+    }
+    
+    public void inserirEfeitoCarta(int efeito_id) throws Exception {
+        Connection c = obterConexao();
+
+        String sql = "INSERT INTO efeito_carta (efeito_id, carta_id) VALUES ((SELECT MAX(id) FROM usuario), ?)";
+        PreparedStatement stmt = c.prepareStatement(sql);
+        stmt.setInt(1, efeito_id);
+        int resultado = stmt.executeUpdate();
+        stmt.close();
+
+        fecharConexao(c);
     }
 }
