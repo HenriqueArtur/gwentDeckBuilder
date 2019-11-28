@@ -22,27 +22,24 @@ import java.util.List;
 
 public class DeckDAO extends DAO {
      public void inserir(DeckProduct cp) throws Exception {
-        try {
-            CartaDAO cartaDAO = new CartaDAO();
-            Connection c = obterConexao();
+        CartaDAO cartaDAO = new CartaDAO();
+        Connection c = obterConexao();
 
-            String sql = "INSERT INTO deck (usuario_id, titulo) VALUES (?, ?)";
-            PreparedStatement stmt = c.prepareStatement(sql);
-            stmt.setInt(1, cp.getUsuario().getId());
-            stmt.setString(2, cp.getDeck_name());
-            //*****************************************
-            for(CartaProduct carta : cp.getCartas()) {
-                inserirCartaDeck(carta.getId_carta());
-            }
-            //*****************************************
-            int resultado = stmt.executeUpdate();
-            stmt.close();
+        String sql = "INSERT INTO deck (usuario_id, titulo) VALUES (?, ?)";
+        PreparedStatement stmt = c.prepareStatement(sql);
+        stmt.setInt(1, cp.getUsuario().getId());
+        stmt.setString(2, cp.getDeck_name());
+        int resultado = stmt.executeUpdate();
+        stmt.close();
 
-            fecharConexao(c);
-            if (resultado != 1) {
-                throw new Exception("Não foi possível inserir este deck");
-            }
-        } catch (Exception ex) {
+        //*****************************************
+        for(CartaProduct carta : cp.getCartas()) {
+            inserirCartaDeck(carta.getId_carta());
+        }
+        //*****************************************
+        
+        fecharConexao(c);
+        if (resultado != 1) {
             throw new Exception("Não foi possível inserir este deck");
         }
     }
@@ -50,20 +47,13 @@ public class DeckDAO extends DAO {
      public void atualizar(DeckProduct cp) throws Exception {
         Connection c = obterConexao();
         
-        String sql = "UPDATE deck SET titulo = ? WHERE id = ? AND usuario_id = ?";
+        String sql = "UPDATE deck SET titulo = ? WHERE deck_id = ?";
         PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setString(1, cp.getDeck_name());
         stmt.setInt(2, cp.getId_deck());
-        stmt.setInt(3, cp.getUsuario().getId());
-        //*****************************************
-        for(CartaProduct carta : cp.getCartas()) {
-            CartaDAO cartaDAO = new CartaDAO();
-            cartaDAO.atualizar(carta);
-        }
-        //*****************************************
         int resultado = stmt.executeUpdate();
         stmt.close();
-
+        
         fecharConexao(c);
         if (resultado != 1) {
             throw new Exception("Não foi possível atualizar este deck");
@@ -73,7 +63,7 @@ public class DeckDAO extends DAO {
     public void remover(DeckProduct cp) throws Exception {
         Connection c = obterConexao();
         
-        String sql = "DELETE FROM deck WHERE id = ?";
+        String sql = "DELETE FROM deck WHERE deck_id = ?";
         PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setInt(1, cp.getId_deck());
         int resultado = stmt.executeUpdate();
@@ -100,7 +90,7 @@ public class DeckDAO extends DAO {
             Usuario u = new Usuario();
             cb.setUsuario(u);
             //********************************************
-            cb.setCartas(obterCartas(rs.getInt("deck_id"), rs.getInt("usuario_id"), c));
+                cb.setCartas(obterCartas(rs.getInt("deck_id"), c));
             //********************************************
         }
         rs.close();
@@ -125,7 +115,7 @@ public class DeckDAO extends DAO {
             Usuario u = new Usuario();
             a.setUsuario(u);
             //********************************************
-            a.setCartas(obterCartas(rs.getInt("id"), rs.getInt("usuario_id"), c));
+            a.setCartas(obterCartas(rs.getInt("deck_id"), c));
             //********************************************
             decks.add(a);
         }
@@ -135,18 +125,17 @@ public class DeckDAO extends DAO {
         return decks;
     }
     
-    public ArrayList<CartaProduct> obterCartas(int id_deck, int id_usuario, Connection c) throws Exception{
+    public ArrayList<CartaProduct> obterCartas(int id_deck, Connection c) throws Exception{
         ArrayList<CartaProduct> cartas = new ArrayList<CartaProduct>();
         CartaDAO carta = new CartaDAO();
-        String sql = "SELECT c.id FROM carta AS c, carta_deck AS cd, deck AS d WHERE cd.deck_id = ? AND d.usuario_id = ? AND cd.carta_id = c.id";
+        String sql = "SELECT DISTINCT c.id AS id_carta FROM carta AS c, carta_deck AS cd, deck AS d WHERE cd.deck_id = ?";
         PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setInt(1, id_deck);
-        stmt.setInt(2, id_usuario);
-        ResultSet rs2 = stmt.executeQuery();
-        while (rs2.next()) {
-            cartas.add(carta.obter(rs2.getInt("c.id")));
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            cartas.add(carta.obter(rs.getInt("id_carta")));
         }
-        rs2.close();
+        rs.close();
         return cartas;
     }
 

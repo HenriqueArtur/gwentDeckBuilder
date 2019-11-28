@@ -25,22 +25,7 @@ import java.util.function.Consumer;
  */
 public class Main {
     public static void main(String[] args) throws Exception {
-        AdminDAO j = new AdminDAO();
-        DeckDAO d = new DeckDAO();
         CartaDAO c = new CartaDAO();
-        
-        DeckProduct dp = new DeckProduct();
-        
-        //dp.setDeck_name("deck_name");
-        //dp.setUsuario(j.obterParaDeck(6));
-        
-        /*for(int i = 1; i < 21; i++) {
-            System.out.println(c.obter(i).getId_carta());
-            dp.addCarta(c.obter(i));
-        }*/
-        
-        //d.inserir(dp);
-        
-        System.out.println(d.obter(6).getCartas());
+        CartaProduct cp = new CartaProduct();
     }
 }
