@@ -202,10 +202,13 @@ public class CartaDAO extends DAO {
     public void inserirEfeitoCarta(int efeito_id) throws Exception {
         Connection c = obterConexao();
 
-        String sql = "INSERT INTO efeito_carta (efeito_id, carta_id) VALUES ((SELECT MAX(id) FROM usuario), ?)";
+        String sql = "INSERT INTO efeito_carta (efeito_id, carta_id) VALUES (?, (SELECT MAX(id) FROM usuario))";
         PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setInt(1, efeito_id);
         int resultado = stmt.executeUpdate();
+        if (resultado == 0) {
+            throw new Exception("Não foi possível inserir referencia em carta_efeito");
+        }
         stmt.close();
 
         fecharConexao(c);

@@ -53,12 +53,6 @@ public class AdminDAO extends DAO {
         int resultado = stmt.executeUpdate();
         stmt.close();
         
-        sql = "UPDATE admin SET usuario_id = ?";
-        stmt = c.prepareStatement(sql);
-        stmt.setInt(1, a.getId());
-        resultado = stmt.executeUpdate();
-        stmt.close();
-        
         fecharConexao(c);
         if (resultado != 1) {
             throw new Exception("Não foi possível atualizar este admin");
