@@ -16,20 +16,20 @@ public class DeckProduct {
     private int id_deck;
     private String deck_name;
     private Usuario usuario;
-    private ArrayList<CartaProduct> cartas;
+    private ArrayList<CartaProduct> cartas = new ArrayList<CartaProduct>();
 
     public DeckProduct() {}
     
     public void addCarta(CartaProduct carta) {
-        if(retornaProvisoes() + carta.getProvisoes() <= 165 && cartaPorHierarquia(carta)) {
-            cartas.add(carta);
+        if(retornaProvisoes() + carta.getProvisoes() <= 165 /*&& cartaPorHierarquia(carta)*/) {
+            getCartas().add(carta);
         }
     }
     
     public void removeCarta(CartaProduct cartaInserida) {
         for(CartaProduct cartaComparada : cartas){
             if(cartaComparada.equals(cartaInserida)) {
-                cartas.remove(cartaInserida);
+                getCartas().remove(cartaInserida);
                 break;
             }
         }
@@ -45,8 +45,10 @@ public class DeckProduct {
     
     private int retornaProvisoes() {
         int soma = 0;
-        for(CartaProduct carta : cartas){
-            soma += carta.getProvisoes();
+        if(cartas != null) {
+            for(CartaProduct carta : cartas){
+                soma += carta.getProvisoes();
+            }
         }
         return soma;
     }

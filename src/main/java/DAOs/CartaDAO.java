@@ -121,7 +121,7 @@ public class CartaDAO extends DAO {
     public List<CartaProduct> obterTodos() throws Exception {
         List<CartaProduct> cartas = new ArrayList<CartaProduct>();
         Connection c = obterConexao();
-        String sql = "SELECT id, titulo, descricao, faccao, raridade, hierarquia, arte, resto, pontos, provisoes FROM carta";
+        String sql = "SELECT id, titulo, descricao, faccao, raridade, hierarquia, arte, resto, pontos, provisoes FROM carta ";
         PreparedStatement stmt = c.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {

@@ -22,17 +22,16 @@ import java.util.List;
 
 public class DeckDAO extends DAO {
      public void inserir(DeckProduct cp) throws Exception {
+        CartaDAO cartaDAO = new CartaDAO();
         Connection c = obterConexao();
         
-        String sql = "INSERT INTO deck (id, usuario_id, deck_name) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO deck (usuario_id, titulo) VALUES (?, ?)";
         PreparedStatement stmt = c.prepareStatement(sql);
-        stmt.setInt(1, cp.getId_deck());
-        stmt.setInt(3, cp.getUsuario().getId());
-        stmt.setString(3, cp.getDeck_name());
+        stmt.setInt(1, cp.getUsuario().getId());
+        stmt.setString(2, cp.getDeck_name());
         //*****************************************
         for(CartaProduct carta : cp.getCartas()) {
-            CartaDAO cartaDAO = new CartaDAO();
-            cartaDAO.inserir(carta);
+            //inserirCartaDeck(carta.getId_carta());
         }
         //*****************************************
         int resultado = stmt.executeUpdate();
@@ -147,4 +146,15 @@ public class DeckDAO extends DAO {
         return cartas;
     }
 
+    public void inserirCartaDeck(int carta_id) throws Exception {
+        Connection c = obterConexao();
+        
+        String sql = "INSERT INTO carta_deck (deck_id, carta_id) VALUES ((SELECT MAX(deck_id) FROM deck), ?)";
+        PreparedStatement stmt = c.prepareStatement(sql);
+        stmt.setInt(1, carta_id);
+        int resultado = stmt.executeUpdate();
+        stmt.close();
+
+        fecharConexao(c);
+    }
 }

@@ -1,8 +1,10 @@
 
 import DAOs.AdminDAO;
 import DAOs.CartaDAO;
+import DAOs.DeckDAO;
 import DAOs.JogadorDAO;
 import Game.CartaProduct;
+import Game.DeckProduct;
 import Game.Efeito;
 import Game.EfeitoConsume;
 import Users.Admin;
@@ -23,27 +25,22 @@ import java.util.function.Consumer;
  */
 public class Main {
     public static void main(String[] args) throws Exception {
-        /*ArrayList<Efeito> efeitos = new ArrayList<Efeito>();
-        EfeitoConsume com = new EfeitoConsume("esse");
-        EfeitoConsume aaa = new EfeitoConsume("aaa");
-        efeitos.add(com);
-        efeitos.add(aaa);
+        JogadorDAO j = new JogadorDAO();
+        DeckDAO d = new DeckDAO();
+        CartaDAO c = new CartaDAO();
         
-        CartaProduct c = new CartaProduct();
-        c.setArte("b");
-        c.setDescricao("des2");
-        c.setEfeitos(efeitos);
-        c.setFaccao("fac2");
-        c.setHierarquia("hie2");
-        c.setPontos(1);
-        c.setProvisoes(2);
-        c.setRaridade("nor2");
-        c.setRestos(200);
-        c.setTitulo("tit2");
-        c.setId(0);
-        */
-        CartaDAO carta = new CartaDAO();
+        DeckProduct dp = new DeckProduct();
         
-        System.out.println(carta.obterTodos());
+        dp.setDeck_name("deck_name");
+        dp.setUsuario(j.obter(7));
+        
+        for(int i = 1; i < 21; i++) {
+            System.out.println(c.obter(i).getId_carta());
+            dp.addCarta(c.obter(i));
+        }
+        
+        d.inserir(dp);
+        
+        //System.out.println(dp.getCartas());
     }
 }
