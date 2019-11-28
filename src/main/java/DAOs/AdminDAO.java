@@ -113,6 +113,31 @@ public class AdminDAO extends DAO {
         return a;
     }
 
+    public Admin obterParaDeck(int id) throws Exception {
+        Admin a = null;
+        Connection c = obterConexao();
+        String sql = "SELECT u.id, u.nome_usuario, u.email, u.senha FROM usuario AS u, admin AS a WHERE u.id = ? AND a.usuario_id = ?";
+        PreparedStatement stmt = c.prepareStatement(sql);
+        stmt.setInt(1, id);
+        stmt.setInt(2, id);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            a = new Admin();
+            a.setId(rs.getInt("id"));
+            a.setNome_usuario(rs.getString("nome_usuario"));
+            a.setEmail(rs.getString("email"));
+            a.setSenha(rs.getString("senha"));
+        }
+        rs.close();
+        stmt.close();
+        fecharConexao(c);
+        if (a == null) {
+            throw new Exception("Não foi possível localizar este usuario");
+        }
+        return a;
+    }
+
+    
     public List<Admin> obterTodos() throws Exception {
         List<Admin> admins = new ArrayList<Admin>();
         Connection c = obterConexao();

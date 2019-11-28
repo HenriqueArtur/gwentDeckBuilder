@@ -22,23 +22,27 @@ import java.util.List;
 
 public class DeckDAO extends DAO {
      public void inserir(DeckProduct cp) throws Exception {
-        CartaDAO cartaDAO = new CartaDAO();
-        Connection c = obterConexao();
-        
-        String sql = "INSERT INTO deck (usuario_id, titulo) VALUES (?, ?)";
-        PreparedStatement stmt = c.prepareStatement(sql);
-        stmt.setInt(1, cp.getUsuario().getId());
-        stmt.setString(2, cp.getDeck_name());
-        //*****************************************
-        for(CartaProduct carta : cp.getCartas()) {
-            //inserirCartaDeck(carta.getId_carta());
-        }
-        //*****************************************
-        int resultado = stmt.executeUpdate();
-        stmt.close();
+        try {
+            CartaDAO cartaDAO = new CartaDAO();
+            Connection c = obterConexao();
 
-        fecharConexao(c);
-        if (resultado != 1) {
+            String sql = "INSERT INTO deck (usuario_id, titulo) VALUES (?, ?)";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setInt(1, cp.getUsuario().getId());
+            stmt.setString(2, cp.getDeck_name());
+            //*****************************************
+            for(CartaProduct carta : cp.getCartas()) {
+                inserirCartaDeck(carta.getId_carta());
+            }
+            //*****************************************
+            int resultado = stmt.executeUpdate();
+            stmt.close();
+
+            fecharConexao(c);
+            if (resultado != 1) {
+                throw new Exception("Não foi possível inserir este deck");
+            }
+        } catch (Exception ex) {
             throw new Exception("Não foi possível inserir este deck");
         }
     }
@@ -85,18 +89,18 @@ public class DeckDAO extends DAO {
         DeckProduct cb = null;
         Connection c = obterConexao();
         
-        String sql = "SELECT id, usuario_id, deck_name FROM deck WHERE id = ?";
+        String sql = "SELECT deck_id, usuario_id, titulo FROM deck WHERE deck_id = ?";
         PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setInt(1, id);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
             cb = new DeckProduct();
-            cb.setId_deck(rs.getInt("id"));
-            cb.setDeck_name(rs.getString("deck_name"));
+            cb.setId_deck(rs.getInt("deck_id"));
+            cb.setDeck_name(rs.getString("titulo"));
             Usuario u = new Usuario();
             cb.setUsuario(u);
             //********************************************
-            cb.setCartas(obterCartas(rs.getInt("id"), rs.getInt("usuario_id"), c));
+            cb.setCartas(obterCartas(rs.getInt("deck_id"), rs.getInt("usuario_id"), c));
             //********************************************
         }
         rs.close();
@@ -111,13 +115,13 @@ public class DeckDAO extends DAO {
     public List<DeckProduct> obterTodos() throws Exception {
         List<DeckProduct> decks = new ArrayList<DeckProduct>();
         Connection c = obterConexao();
-        String sql = "SELECT id, usuario_id, deck_name FROM deck";
+        String sql = "SELECT deck_id, usuario_id, titulo FROM deck";
         PreparedStatement stmt = c.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
             DeckProduct a = new DeckProduct();
-            a.setId_deck(rs.getInt("id"));
-            a.setDeck_name(rs.getString("deck_name"));
+            a.setId_deck(rs.getInt("deck_id"));
+            a.setDeck_name(rs.getString("titulo"));
             Usuario u = new Usuario();
             a.setUsuario(u);
             //********************************************
@@ -134,7 +138,7 @@ public class DeckDAO extends DAO {
     public ArrayList<CartaProduct> obterCartas(int id_deck, int id_usuario, Connection c) throws Exception{
         ArrayList<CartaProduct> cartas = new ArrayList<CartaProduct>();
         CartaDAO carta = new CartaDAO();
-        String sql = "SELECT c.id FROM carta AS c, carta_deck AS cd, deck AS d WHERE cd.deck_id = ? AND cd.usuario_id = ? AND cd.carta_id = c.id";
+        String sql = "SELECT c.id FROM carta AS c, carta_deck AS cd, deck AS d WHERE cd.deck_id = ? AND d.usuario_id = ? AND cd.carta_id = c.id";
         PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setInt(1, id_deck);
         stmt.setInt(2, id_usuario);

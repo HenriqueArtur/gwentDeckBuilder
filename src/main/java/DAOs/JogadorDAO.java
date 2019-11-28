@@ -110,6 +110,31 @@ public class JogadorDAO extends DAO {
         }
         return j;
     }
+    
+    public Jogador obterParaDeck(int id) throws Exception {
+        Jogador j = null;
+        Connection c = obterConexao();
+        String sql = "SELECT u.id, u.nome_usuario, u.email, u.senha FROM usuario AS u, jogador AS j WHERE u.id = ? AND j.usuario_id = ?";
+        PreparedStatement stmt = c.prepareStatement(sql);
+        stmt.setInt(1, id);
+        stmt.setInt(2, id);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            j = new Jogador();
+            j.setId(rs.getInt("id"));
+            j.setNome_usuario(rs.getString("nome_usuario"));
+            j.setEmail(rs.getString("email"));
+            j.setSenha(rs.getString("senha"));
+        }
+        rs.close();
+        stmt.close();
+        fecharConexao(c);
+        if (j == null) {
+            throw new Exception("Não foi possível localizar este usuario");
+        }
+        return j;
+    }
+
 
     public List<Jogador> obterTodos() throws Exception {
         List<Jogador> jogadores = new ArrayList<Jogador>();
