@@ -4,24 +4,21 @@
  * and open the template in the editor.
  */
 package InterfaceGrafica;
+
 import DAOs.CartaDAO;
 import Game.CartaProduct;
-import Game.Efeito;
-import Game.EfeitoConsume;
-import Game.EfeitoDeploy;
-import Game.EfeitoHeal;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author sarah
  */
-public class TelaCriaCarta extends javax.swing.JFrame {
+public class TelaRemoveCarta extends javax.swing.JFrame {
 
     /**
-     * Creates new form TelaCriaCarta
+     * Creates new form NewJFrame
      */
-    public TelaCriaCarta() {
+    public TelaRemoveCarta() {
         initComponents();
     }
 
@@ -34,121 +31,146 @@ public class TelaCriaCarta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        textoTitulo = new javax.swing.JTextField();
-        textoDescricao = new javax.swing.JTextField();
-        textoFaccao = new javax.swing.JTextField();
-        botaoInserir = new javax.swing.JButton();
-        rotuloTítulo = new javax.swing.JLabel();
-        rotuloDescricao = new javax.swing.JLabel();
-        rotuloFaccao = new javax.swing.JLabel();
-        rotuloHierarquia = new javax.swing.JLabel();
+        rotuloProvisoes = new javax.swing.JLabel();
+        rotuloFaccao1 = new javax.swing.JLabel();
         textoHierarquia = new javax.swing.JTextField();
+        textoProvisoes = new javax.swing.JTextField();
         rotuloRaridade = new javax.swing.JLabel();
         textoRaridade = new javax.swing.JTextField();
+        textoTitulo = new javax.swing.JTextField();
         rotuloSenha3 = new javax.swing.JLabel();
+        textoDescricao = new javax.swing.JTextField();
         textoArte = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        rotuloRestos = new javax.swing.JLabel();
-        textoRestos = new javax.swing.JTextField();
-        rotuloPontos = new javax.swing.JLabel();
-        textoPontos = new javax.swing.JTextField();
-        rotuloProvisoes = new javax.swing.JLabel();
-        textoProvisoes = new javax.swing.JTextField();
+        textoFaccao = new javax.swing.JTextField();
         checkConsume = new javax.swing.JCheckBox();
+        rotuloRestos = new javax.swing.JLabel();
         checkDeploy = new javax.swing.JCheckBox();
+        rotuloTítulo = new javax.swing.JLabel();
+        textoRestos = new javax.swing.JTextField();
         checkHeal = new javax.swing.JCheckBox();
-        rotuloFaccao1 = new javax.swing.JLabel();
+        rotuloDescricao = new javax.swing.JLabel();
+        rotuloPontos = new javax.swing.JLabel();
+        rotuloFaccao = new javax.swing.JLabel();
+        textoPontos = new javax.swing.JTextField();
+        rotuloHierarquia = new javax.swing.JLabel();
+        textoId = new javax.swing.JTextField();
+        botaoConsultar = new javax.swing.JButton();
+        rotuloId = new javax.swing.JLabel();
+        botaoRemover = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        rotuloProvisoes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rotuloProvisoes.setText("Provisões:");
+
+        rotuloFaccao1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rotuloFaccao1.setText("Efeitos:");
+
+        textoHierarquia.setEditable(false);
+
+        textoProvisoes.setEditable(false);
+        textoProvisoes.setToolTipText("");
+
+        rotuloRaridade.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rotuloRaridade.setText("Raridade:");
+
+        textoRaridade.setEditable(false);
+
+        textoTitulo.setEditable(false);
         textoTitulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textoTituloActionPerformed(evt);
             }
         });
 
-        botaoInserir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        botaoInserir.setText("Inserir");
-        botaoInserir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        botaoInserir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoInserirActionPerformed(evt);
-            }
-        });
-
-        rotuloTítulo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        rotuloTítulo.setText("Título:");
-
-        rotuloDescricao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        rotuloDescricao.setText("Descrição:");
-
-        rotuloFaccao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        rotuloFaccao.setText("Facção:");
-
-        rotuloHierarquia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        rotuloHierarquia.setText("Hierarquia:");
-
-        rotuloRaridade.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        rotuloRaridade.setText("Raridade:");
-
         rotuloSenha3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         rotuloSenha3.setText("Arte:");
 
-        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setFont(new java.awt.Font("Humnst777 Lt BT", 0, 36)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Crie sua carta");
-        jLabel1.setToolTipText("");
-        jLabel1.setPreferredSize(new java.awt.Dimension(300, 22));
+        textoDescricao.setEditable(false);
 
-        rotuloRestos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        rotuloRestos.setText("Restos:");
+        textoArte.setEditable(false);
 
-        rotuloPontos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        rotuloPontos.setText("Pontos: ");
-
-        textoPontos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoPontosActionPerformed(evt);
-            }
-        });
-
-        rotuloProvisoes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        rotuloProvisoes.setText("Provisões:");
-
-        textoProvisoes.setToolTipText("");
+        textoFaccao.setEditable(false);
 
         checkConsume.setText("Consume");
+        checkConsume.setEnabled(false);
         checkConsume.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkConsumeActionPerformed(evt);
             }
         });
 
+        rotuloRestos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rotuloRestos.setText("Restos:");
+
         checkDeploy.setText("Deploy");
+        checkDeploy.setEnabled(false);
         checkDeploy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkDeployActionPerformed(evt);
             }
         });
 
+        rotuloTítulo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rotuloTítulo.setText("Título:");
+
+        textoRestos.setEditable(false);
+
         checkHeal.setText("Heal");
+        checkHeal.setEnabled(false);
         checkHeal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkHealActionPerformed(evt);
             }
         });
 
-        rotuloFaccao1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        rotuloFaccao1.setText("Efeitos:");
+        rotuloDescricao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rotuloDescricao.setText("Descrição:");
+
+        rotuloPontos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rotuloPontos.setText("Pontos: ");
+
+        rotuloFaccao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rotuloFaccao.setText("Facção:");
+
+        textoPontos.setEditable(false);
+        textoPontos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textoPontosActionPerformed(evt);
+            }
+        });
+
+        rotuloHierarquia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rotuloHierarquia.setText("Hierarquia:");
+
+        botaoConsultar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        botaoConsultar.setText("Consultar");
+        botaoConsultar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botaoConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoConsultarActionPerformed(evt);
+            }
+        });
+
+        rotuloId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rotuloId.setText("Id:");
+
+        botaoRemover.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        botaoRemover.setText("Remover");
+        botaoRemover.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botaoRemover.setEnabled(false);
+        botaoRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoRemoverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rotuloProvisoes)
                     .addComponent(rotuloFaccao1)
@@ -159,37 +181,45 @@ public class TelaCriaCarta extends javax.swing.JFrame {
                     .addComponent(rotuloDescricao)
                     .addComponent(rotuloPontos)
                     .addComponent(rotuloFaccao)
-                    .addComponent(rotuloHierarquia))
+                    .addComponent(rotuloHierarquia)
+                    .addComponent(rotuloId))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(textoId, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botaoConsultar)
+                        .addGap(261, 261, 261))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textoTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+                            .addComponent(textoTitulo, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(textoDescricao, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(textoFaccao, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(botaoInserir)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(textoHierarquia)
-                                .addComponent(textoRaridade)
-                                .addComponent(textoArte)
-                                .addComponent(textoRestos, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(textoPontos)
-                                .addComponent(textoProvisoes, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))))
+                            .addComponent(textoFaccao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(textoHierarquia)
+                            .addComponent(textoRaridade)
+                            .addComponent(textoArte)
+                            .addComponent(textoRestos, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(textoPontos)
+                            .addComponent(textoProvisoes, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(botaoRemover))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(checkConsume)
                         .addGap(18, 18, 18)
                         .addComponent(checkDeploy)
                         .addGap(18, 18, 18)
                         .addComponent(checkHeal)))
-                .addContainerGap())
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(82, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textoId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoConsultar)
+                    .addComponent(rotuloId))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rotuloTítulo)
                     .addComponent(textoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -200,7 +230,7 @@ public class TelaCriaCarta extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(rotuloFaccao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textoFaccao))
+                    .addComponent(textoFaccao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(checkConsume)
@@ -209,7 +239,7 @@ public class TelaCriaCarta extends javax.swing.JFrame {
                     .addComponent(rotuloFaccao1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rotuloRaridade, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                    .addComponent(rotuloRaridade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(textoRaridade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -231,9 +261,9 @@ public class TelaCriaCarta extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rotuloProvisoes)
                     .addComponent(textoProvisoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addComponent(botaoInserir)
-                .addGap(39, 39, 39))
+                .addGap(18, 18, 18)
+                .addComponent(botaoRemover)
+                .addContainerGap())
         );
 
         pack();
@@ -242,59 +272,6 @@ public class TelaCriaCarta extends javax.swing.JFrame {
     private void textoTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoTituloActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textoTituloActionPerformed
-
-    private void botaoInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoInserirActionPerformed
-        int opcao = JOptionPane.showConfirmDialog(this, "Deseja realmente criar essa carta?", "Criar carta", JOptionPane.YES_NO_CANCEL_OPTION);
-        if (opcao == JOptionPane.YES_OPTION) {
-            try {
-                ArrayList<Efeito> efeitos = new ArrayList<>();
-                if (checkConsume.isSelected()){
-                    EfeitoConsume e = new EfeitoConsume("");
-                    efeitos.add(e);
-                }
-                if (checkDeploy.isSelected()){
-                    EfeitoDeploy e = new EfeitoDeploy("");
-                    efeitos.add(e);
-                }
-                if (checkHeal.isSelected()){
-                    EfeitoHeal e = new EfeitoHeal("");
-                    efeitos.add(e);
-                }
-                CartaProduct c = new CartaProduct();
-                c.setEfeitos(efeitos);
-                c.setTitulo(textoTitulo.getText());
-                c.setDescricao(textoDescricao.getText());
-                c.setFaccao(textoFaccao.getText());
-                c.setRaridade(textoRaridade.getText());
-                c.setHierarquia(textoHierarquia.getText());
-                c.setArte(textoArte.getText());
-                c.setRestos(Integer.parseInt(textoRestos.getText()));
-                c.setPontos(Integer.parseInt(textoPontos.getText()));
-                c.setProvisoes(Integer.parseInt(textoProvisoes.getText()));
-                CartaDAO dao = new CartaDAO();
-                
-                dao.inserir(c);
-                
-                textoTitulo.setText("");
-                textoDescricao.setText("");
-                textoFaccao.setText("");
-                textoRaridade.setText("");
-                textoHierarquia.setText("");
-                textoArte.setText("");
-                textoRestos.setText("");
-                textoPontos.setText("");
-                textoProvisoes.setText("");
-                JOptionPane.showMessageDialog(this, "Carta criada com sucesso", "Criar carta", JOptionPane.INFORMATION_MESSAGE);
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage(), "Criar carta", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-        botaoInserir.transferFocus();
-    }//GEN-LAST:event_botaoInserirActionPerformed
-
-    private void textoPontosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoPontosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textoPontosActionPerformed
 
     private void checkConsumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkConsumeActionPerformed
         // TODO add your handling code here:
@@ -307,6 +284,80 @@ public class TelaCriaCarta extends javax.swing.JFrame {
     private void checkHealActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkHealActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_checkHealActionPerformed
+
+    private void textoPontosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoPontosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textoPontosActionPerformed
+
+    private void botaoConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoConsultarActionPerformed
+        try {
+            /*textoTitulo.setEnabled(false);
+            textoDescricao.setEnabled(false);
+            textoFaccao.setEnabled(false);
+            textoRaridade.setEnabled(false);
+            textoHierarquia.setEnabled(false);
+            textoArte.setEnabled(false);
+            textoRestos.setEnabled(false);
+            textoPontos.setEnabled(false);
+            textoProvisoes.setEnabled(false);*/
+            CartaDAO dao = new CartaDAO();
+            CartaProduct c = dao.obter(Integer.parseInt(textoId.getText()));
+            textoTitulo.setText(c.getTitulo());
+            textoDescricao.setText(c.getDescricao());
+            textoFaccao.setText(c.getFaccao());
+            textoRaridade.setText(c.getRaridade());
+            textoHierarquia.setText(c.getHierarquia());
+            textoArte.setText(c.getArte());
+            textoRestos.setText(Integer.toString(c.getRestos()));
+            textoPontos.setText(Integer.toString(c.getPontos()));
+            textoProvisoes.setText(Integer.toString(c.getProvisoes()));
+            textoId.setEnabled(false);
+            botaoConsultar.setEnabled(false);
+            botaoRemover.setEnabled(true);
+            //botaoRemover.setEnabled(true);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Consultar Administrador", JOptionPane.ERROR_MESSAGE);
+        }
+        botaoConsultar.transferFocus();
+    }//GEN-LAST:event_botaoConsultarActionPerformed
+
+    private void botaoRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverActionPerformed
+        int opcao = JOptionPane.showConfirmDialog(this, "Deseja realmente remover esta Carta?", "Remover Carta", JOptionPane.YES_NO_CANCEL_OPTION);
+        if (opcao == JOptionPane.YES_OPTION) {
+            try {
+                CartaProduct c = new CartaProduct();
+                c.setId(Integer.parseInt(textoId.getText()));
+                c.setTitulo(textoTitulo.getText());
+                c.setDescricao(textoDescricao.getText());
+                c.setFaccao(textoFaccao.getText());
+                c.setRaridade(textoRaridade.getText());
+                c.setHierarquia(textoHierarquia.getText());
+                c.setArte(textoArte.getText());
+                c.setRestos(Integer.parseInt(textoRestos.getText()));
+                c.setPontos(Integer.parseInt(textoPontos.getText()));
+                c.setProvisoes(Integer.parseInt(textoProvisoes.getText()));
+                CartaDAO dao = new CartaDAO();
+                dao.remover(c);
+                textoId.setEnabled(true);
+                botaoConsultar.setEnabled(true);
+                botaoRemover.setEnabled(false);
+                textoId.setText("");
+                textoTitulo.setText("");
+                textoDescricao.setText("");
+                textoFaccao.setText("");
+                textoRaridade.setText("");
+                textoHierarquia.setText("");
+                textoArte.setText("");
+                textoRestos.setText("");
+                textoPontos.setText("");
+                textoProvisoes.setText("");
+                JOptionPane.showMessageDialog(this, "Carta removida com sucesso", "Remover Carta", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Remover Carta", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        botaoRemover.transferFocus();
+    }//GEN-LAST:event_botaoRemoverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -325,34 +376,36 @@ public class TelaCriaCarta extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCriaCarta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaRemoveCarta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCriaCarta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaRemoveCarta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCriaCarta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaRemoveCarta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCriaCarta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaRemoveCarta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaCriaCarta().setVisible(true);
+                new TelaRemoveCarta().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botaoInserir;
+    private javax.swing.JButton botaoConsultar;
+    private javax.swing.JButton botaoRemover;
     private javax.swing.JCheckBox checkConsume;
     private javax.swing.JCheckBox checkDeploy;
     private javax.swing.JCheckBox checkHeal;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel rotuloDescricao;
     private javax.swing.JLabel rotuloFaccao;
     private javax.swing.JLabel rotuloFaccao1;
     private javax.swing.JLabel rotuloHierarquia;
+    private javax.swing.JLabel rotuloId;
     private javax.swing.JLabel rotuloPontos;
     private javax.swing.JLabel rotuloProvisoes;
     private javax.swing.JLabel rotuloRaridade;
@@ -363,6 +416,7 @@ public class TelaCriaCarta extends javax.swing.JFrame {
     private javax.swing.JTextField textoDescricao;
     private javax.swing.JTextField textoFaccao;
     private javax.swing.JTextField textoHierarquia;
+    private javax.swing.JTextField textoId;
     private javax.swing.JTextField textoPontos;
     private javax.swing.JTextField textoProvisoes;
     private javax.swing.JTextField textoRaridade;

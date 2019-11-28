@@ -73,6 +73,11 @@ public class TelaEditaAdm extends javax.swing.JFrame {
         rotuloSenha.setText("Senha:");
 
         textoNome.setEnabled(false);
+        textoNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textoNomeActionPerformed(evt);
+            }
+        });
 
         textoSenha.setEnabled(false);
 
@@ -184,6 +189,10 @@ public class TelaEditaAdm extends javax.swing.JFrame {
         }
         botaoConsultar.transferFocus();
     }//GEN-LAST:event_botaoConsultarActionPerformed
+
+    private void textoNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textoNomeActionPerformed
 
     /**
      * @param args the command line arguments

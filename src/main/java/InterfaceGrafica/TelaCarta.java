@@ -119,7 +119,7 @@ public class TelaCarta extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoCriaCartaActionPerformed
 
     private void botaoConsultarCartaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoConsultarCartaActionPerformed
-        TelaConsultaJogador frame = new TelaConsultaJogador();
+        TelaConsultaCarta frame = new TelaConsultaCarta();
         frame.setLocationRelativeTo(null);
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -131,7 +131,7 @@ public class TelaCarta extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoConsultarCartaActionPerformed
 
     private void botaoRemoveCartaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoveCartaActionPerformed
-        TelaRemoveJogador frame = new TelaRemoveJogador();
+        TelaRemoveCarta frame = new TelaRemoveCarta();
         frame.setLocationRelativeTo(null);
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -143,7 +143,7 @@ public class TelaCarta extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoRemoveCartaActionPerformed
 
     private void botaoEditaCartaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditaCartaActionPerformed
-        TelaEditaJogador frame = new TelaEditaJogador();
+        TelaEditaCarta frame = new TelaEditaCarta();
         frame.setLocationRelativeTo(null);
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
