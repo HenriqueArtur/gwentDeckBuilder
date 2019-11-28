@@ -100,7 +100,7 @@ public class TelaCadastroAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoInserirActionPerformed
-        int opcao = JOptionPane.showConfirmDialog(this, "Deseja realmente cadastrar esse jogador?", "Cadastrar jogador", JOptionPane.YES_NO_CANCEL_OPTION);
+        int opcao = JOptionPane.showConfirmDialog(this, "Deseja realmente cadastrar esse administrador?", "Cadastrar administrador", JOptionPane.YES_NO_CANCEL_OPTION);
         if (opcao == JOptionPane.YES_OPTION) {
             try {
                 Admin a = new Admin();
@@ -115,9 +115,9 @@ public class TelaCadastroAdmin extends javax.swing.JFrame {
                 textoNome.setText("");
                 textoEmail.setText("");
                 textoSenha.setText("");
-                JOptionPane.showMessageDialog(this, "Jogador cadastrado com sucesso", "Cadastrar jogador", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Administrador cadastrado com sucesso", "Cadastrar administrador", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage(), "Cadastrar jogador", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Cadastrar administrador", JOptionPane.ERROR_MESSAGE);
             }
         }
         botaoInserir.transferFocus();

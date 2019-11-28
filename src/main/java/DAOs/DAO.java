@@ -14,7 +14,7 @@ import java.sql.SQLException;
  * @author artur
  */
 public class DAO {
-    public static final String JDBC_URL = "jdbc:postgresql://localhost:5432/gwent";
+    public static final String JDBC_URL = "jdbc:postgresql://localhost:5432/gwentSchema";
     public static final String JDBC_USUARIO = "postgres";
     public static final String JDBC_SENHA = "ufc123";
 

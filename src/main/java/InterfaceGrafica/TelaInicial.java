@@ -54,7 +54,7 @@ public class TelaInicial extends javax.swing.JFrame {
         });
 
         botaoCadastro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        botaoCadastro.setText("Cadastro");
+        botaoCadastro.setText("Cadastro/ Editar");
         botaoCadastro.setToolTipText("");
         botaoCadastro.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         botaoCadastro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));

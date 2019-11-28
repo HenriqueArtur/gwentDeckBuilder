@@ -5,6 +5,9 @@
  */
 package InterfaceGrafica;
 
+import DAOs.JogadorDAO;
+import Users.Jogador;
+import javax.swing.JOptionPane;
 /**
  *
  * @author sarah
@@ -27,21 +30,98 @@ public class TelaConsultaJogador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        rotuloId2 = new javax.swing.JLabel();
+        textoEmail = new javax.swing.JTextField();
+        rotuloId = new javax.swing.JLabel();
+        textoId = new javax.swing.JTextField();
+        botaoConsultar = new javax.swing.JButton();
+        rotuloId1 = new javax.swing.JLabel();
+        textoUsuario = new javax.swing.JTextField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        rotuloId2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rotuloId2.setText("email:");
+
+        rotuloId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rotuloId.setText("Id:");
+
+        botaoConsultar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        botaoConsultar.setText("Consultar");
+        botaoConsultar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        botaoConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoConsultarActionPerformed(evt);
+            }
+        });
+
+        rotuloId1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rotuloId1.setText("usuário:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(rotuloId2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(rotuloId1)
+                                .addGap(18, 18, 18)
+                                .addComponent(textoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(rotuloId)
+                                .addGap(48, 48, 48)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(botaoConsultar)
+                                    .addComponent(textoId, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(40, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rotuloId)
+                    .addComponent(textoId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(botaoConsultar)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rotuloId1)
+                    .addComponent(textoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rotuloId2)
+                    .addComponent(textoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botaoConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoConsultarActionPerformed
+        try {
+            JogadorDAO dao = new JogadorDAO();
+            System.out.println("1()");
+            Jogador j = dao.obter(Integer.parseInt(textoId.getText()));
+            System.out.println("3()");
+            textoUsuario.setText(j.getNome_usuario());
+            System.out.println("4()");
+            textoEmail.setText(j.getEmail());
+            System.out.println("5()");
+            //JOptionPane.showMessageDialog(this, pessoas.size() + " registro(s) encontrado(s)", "Consultar Pessoa", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Consultar Jogador", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_botaoConsultarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +159,12 @@ public class TelaConsultaJogador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaoConsultar;
+    private javax.swing.JLabel rotuloId;
+    private javax.swing.JLabel rotuloId1;
+    private javax.swing.JLabel rotuloId2;
+    private javax.swing.JTextField textoEmail;
+    private javax.swing.JTextField textoId;
+    private javax.swing.JTextField textoUsuario;
     // End of variables declaration//GEN-END:variables
 }
